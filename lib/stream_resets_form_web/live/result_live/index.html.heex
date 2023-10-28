@@ -1,0 +1,31 @@
+<.header>
+  Listing Results
+</.header>
+
+<.simple_form for={@filter1} phx-change="stream-filtering">
+  <.input field={@filter1[:name]} label="name"/>
+  <.input field={@filter1[:city]} label="city"/>
+</.simple_form>
+
+<.table
+  id="results1"
+  rows={@streams.results1}
+>
+  <:col :let={{_id, result}} label="Name"><%= result.name %></:col>
+  <:col :let={{_id, result}} label="City"><%= result.city %></:col>
+</.table>
+
+<.form for={@filter2} phx-change="assign-filtering">
+  <.input field={@filter2[:name]} label="name"/>
+  <.input field={@filter2[:city]} label="city"/>
+</.form>
+
+
+<.table
+  id="results2"
+  rows={@results2}
+>
+  <:col :let={result} label="Name"><%= result.name %></:col>
+  <:col :let={result} label="City"><%= result.city %></:col>
+</.table>
+
