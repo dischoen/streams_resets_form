@@ -1,0 +1,17 @@
+<.header>
+  Listing Results
+</.header>
+
+<.form for={@filter2} phx-change="assign-filtering">
+  <.input field={@filter2[:name]} label="name"/>
+  <.input field={@filter2[:city]} label="city"/>
+</.form>
+
+<.table
+  id="results2"
+  rows={@results2}
+>
+  <:col :let={result} label="Name"><%= result.name %></:col>
+  <:col :let={result} label="City"><%= result.city %></:col>
+</.table>
+

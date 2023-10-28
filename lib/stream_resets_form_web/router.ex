@@ -17,9 +17,10 @@ defmodule StreamResetsFormWeb.Router do
   scope "/", StreamResetsFormWeb do
     pipe_through :browser
 
-    #get "/", PageController, :home
+    get "/", PageController, :home
 
-    live "/", ResultLive.Index, :index
+    live "/streams_filter",  StreamFilter,   :index, as: :streams_filter
+    live "/assigns_filter", AssignsFilter, :index,  as: :assigns_filter
     #live "/results/new", ResultLive.Index, :new
     #live "/results/:id/edit", ResultLive.Index, :edit
 

@@ -19,7 +19,7 @@ defmodule StreamResetsForm.Tests do
       %{id: 0, name: "alpha", city: "here"},
       %{id: 1, name: "beta",  city: "there"},
       %{id: 2, name: "gamma", city: "anywhere"},
-      %{id: 2, name: "delta", city: "nowhere"}
+      %{id: 3, name: "delta", city: "nowhere"}
     ]
   end
 

@@ -1,17 +1,13 @@
-defmodule StreamResetsFormWeb.ResultLive.Index do
+defmodule StreamResetsFormWeb.StreamFilter do
   use StreamResetsFormWeb, :live_view
 
   alias StreamResetsForm.Tests
-  alias StreamResetsForm.Tests.Result
 
   @impl true
   def mount(_params, _session, socket) do
     socket =
       assign(socket, :filter1, Phoenix.Component.to_form(
             %{"name" => "", "city" => ""}))
-    |> assign(:filter2, Phoenix.Component.to_form(
-          %{"name" => "", "city" => ""}))
-    |> assign(:results2, Tests.list_results())
     |> stream(:results1, Tests.list_results())
     {:ok, socket }
   end
@@ -34,18 +30,22 @@ defmodule StreamResetsFormWeb.ResultLive.Index do
 
   @impl true
   def handle_event("stream-filtering", filters, socket) do
+    %{"city" => city, "name" => name} = filters
     {:noreply,
-     stream(socket, :results1, filter(filters, Tests.list_results()),
-       reset: true)}
-  end
-  def handle_event("assign-filtering", filters, socket) do
-    {:noreply,
-     assign(socket, :results2, filter(filters, Tests.list_results()))}
+     socket
+     |> stream(:results1, filter(filters, Tests.list_results()), reset: true)
+     |> assign(:filter1, Phoenix.Component.to_form(
+          %{"name" => name, "city" => city}))
+     
+    }
   end
 
   def filter(%{"city" => city, "name" => name}, data) do
+    IO.inspect data, label: :data
+    IO.inspect {name, city}, label: :streams_filter
     Enum.filter(data, fn i -> String.contains?(i.name, name) end)
     |> Enum.filter(fn i -> String.contains?(i.city, city) end)
+    |> IO.inspect(label: :post)
   end
   
 end
